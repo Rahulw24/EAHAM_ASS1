@@ -16,7 +16,7 @@ void setup()
   pinMode(2, OUTPUT);   //signal 4 green      
 }
  
-int time_slot=3,d=1;
+int time_slot=3,d=1;  //didn't know how to take input. 
 void loop()
 {
   if(time_slot==1)
@@ -32,7 +32,7 @@ void loop()
   {
   for(int i=1;i<5;i++)
   {
-    if(i==d)                 //d-signal no.
+    if(i==d)                 //d=active signal no.
     {
       digitalWrite(16-3*d, LOW);  //red off
       digitalWrite(14-3*d, HIGH);  //green on
