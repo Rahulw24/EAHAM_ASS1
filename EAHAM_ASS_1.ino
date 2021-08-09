@@ -13,19 +13,30 @@ void setup()
   pinMode(5, OUTPUT);    //signal 3 green
   pinMode(4, OUTPUT);    //signal 4 red
   pinMode(3, OUTPUT);   //signal 4 yellow
-  pinMode(2, OUTPUT);   //signal 4 green      
+  pinMode(2, OUTPUT);   //signal 4 green
+  Serial.begin(9600);
+  Serial.println("Tell the Time slot: ");
 }
  
-int time_slot=3,d=1;  //didn't know how to take input. 
+int time_slot,d=1;  
 void loop()
 {
+  while(Serial.available()==0){}
+  time_slot=Serial.parseInt();
+  Serial.println("Current Time Slot: ");
+    Serial.println(time_slot);
+  
   if(time_slot==1)
   {
     for(int i=0;i<4;i++)
-     digitalWrite(12-4*i, HIGH);  //all yellows on
-     delay(1000); 
+    {
+      digitalWrite(11-3*i, LOW);//all green off
+      digitalWrite(13-3*i, LOW);  //all red off
+     digitalWrite(12-3*i, HIGH);//all yellows on
+    }
+      delay(1000); 
     for(int i=0;i<4;i++)
-     digitalWrite(12-4*i, LOW);   //all yellows off
+     digitalWrite(12-3*i, LOW);   //all yellows off
      delay(1000); 
   }
   else if(time_slot%2==0)
@@ -46,7 +57,8 @@ void loop()
     digitalWrite(15-3*d, HIGH);  //yellow on
     digitalWrite(14-3*d, LOW);  //green off
     delay(1000);
-    digitalWrite(15-3*d, LOW);   //yellow off
+    digitalWrite(15-3*d, LOW);  //yellow off
+    digitalWrite(16-3*d, HIGH);  //red on
     d=(d)%4+1;
   }
   else if(time_slot==3)
@@ -66,6 +78,9 @@ void loop()
       }
     delay(1000);
     for(int i=0;i<2;i++)
+    {
+     digitalWrite(10+3*d-6*i,HIGH);  //red on 
      digitalWrite(9+3*d-6*i, LOW);  //yellow off
-  }
+    }
+    }
 }
